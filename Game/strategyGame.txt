@@ -1,0 +1,67 @@
+//Didn't implement because the damage will stay same for both creatures
+void strategyFight()
+{
+	int choice, choice2;
+	int creaturesCreated[2];
+	choice=selectCharacter();
+	cout<<"How many creature do you want to create: ";
+	cin>>creaturesCreated[0];
+	choice2=selectCharacter();
+	cout<<"How many creature do you want to create: ";
+	cin>>creaturesCreated[1];
+	choice--;
+	choice2--;
+	bool isDone=false;
+//	Creature *player, *player2;
+	
+
+
+	//player2=assignCharacter(choice);
+	
+	Creature *players[creaturesCreated[0]];
+	Creature *players2[creaturesCreated[1]];
+	int x=0;
+	for(x=0;x<creaturesCreated[0];x++) {
+		players[x]=assignCharacter(choice);
+		cout<<*players[x];
+		cout<<"Creature Number: "<<x+1<<endl;
+	}
+	cout<<endl<<"Player 1 Army"<<endl;
+	cout<<"Total Creature count "<<creaturesCreated[0]<<endl<<endl;
+
+	for(int x=0;x<creaturesCreated[0];x++) {
+		players2[x]=assignCharacter(choice);
+		cout<<*players2[x];
+		cout<<"Creature Number: "<<x+1<<endl;
+	}
+	cout<<"Player 2 Army"<<endl;
+	cout<<"Total Creature count "<<creaturesCreated[1]<<endl;
+	x=0;
+	while(1) {
+		cout<<players[x]->getDamage()<<endl;
+		players2[x]->setHitpoints(players2[x]->getHitpoints()-players[x]->getDamage());
+		//srand(time(0));
+		cout<<players2[x]->getDamage()<<endl;
+		players[x]->setHitpoints(players[x]->getHitpoints()-players2[x]->getDamage());
+	if (players[x]->getHitpoints()<=0 && players2[x]->getHitpoints()<=0 && players[x]->getHitpoints()==players2[x]->getHitpoints()) {
+		cout<<endl<<"Battle tied"<<endl;
+		cout<<"Player: "<<*players[x]<<endl;
+		isDone=true;
+		break;
+	}
+	else if (players[x]->getHitpoints()<=0 && players2[x]->getHitpoints()>players[x]->getHitpoints()) {
+
+		cout<<endl<<"Enemy won"<<endl;
+		cout<<"Player: "<<*players2[x]<<endl;
+		isDone=true;
+		break;
+	}
+	else if(players2[x]->getHitpoints()<=0 && players[x]->getHitpoints()>players2[x]->getHitpoints()) {
+		cout<<endl<<"You've won"<<endl;
+		cout<<"Player: "<<*players[x]<<endl;
+		isDone=true;
+		break;
+	}
+}
+	
+}
